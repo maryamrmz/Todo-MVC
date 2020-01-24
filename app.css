@@ -4,17 +4,18 @@
     box-sizing: border-box;
 }
 
-body,
-html {
-    height: 100%;
-    width: 100%;
-}
-
 body {
     color: rgb(71, 238, 230);
     font-weight: bold;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    justify-content: center;
+    overflow: overlay;
+}
+
+h2 {
+    padding-bottom: 30px;
 }
 
 #main {
@@ -22,7 +23,6 @@ body {
     height: auto;
     margin: 60px auto;
     padding: 30px;
-    border: 1px solid rgb(187, 183, 183);
     box-shadow: 0 0 10px rgb(187, 183, 183);
 }
 
@@ -50,6 +50,7 @@ body {
 
 #taskList {
     list-style: none;
+    font-size: 18px;
 }
 
 .task {
@@ -127,6 +128,8 @@ input[type="checkbox"]:checked::before {
     border: 1px solid rgb(233, 73, 180);
     font-weight: bold;
     padding: 3px;
+    width: 50px;
+    height: 25px;
     border-radius: 30px;
     transition: 0.5s linear;
 }
@@ -162,11 +165,12 @@ input[type="checkbox"]:checked::before {
     line-height: 2.5;
 }
 
-.buttons div:hover {
+.buttons div:hover,
+.buttons div:active {
     transition: all 0.25s;
     transform: scale(1.1);
 }
 
-.buttons div:focus {
-    background: rgb(180, 248, 245);
+.activeBtn {
+    background-color: rgb(35, 47, 47) !important;
 }

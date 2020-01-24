@@ -13,7 +13,7 @@ class Model {
     }
 
     addTodo(todoText) {
-        const todo = {
+        var todo = {
             id:
                 this.todoS.length > 0
                     ? this.todoS[this.todoS.length - 1].id + 1
@@ -74,21 +74,24 @@ class View {
         this.form = document.querySelector("#taskForm");
         this.input = document.getElementById("taskInput");
         this.list = document.querySelector("#taskList");
-        this.filter = document.getElementById("filterButtons");
+        this.filterBtnS = document.getElementById("filterButtons");
+        this.allBtn = document.querySelector(".all");
+        this.activeBtn = document.querySelector(".active");
+        this.completeBtn = document.querySelector(".complete");
 
         this._temporaryTodoText = "";
         this._initLocalListeners();
     }
 
     createElement(tag, className) {
-        const element = document.createElement(tag);
+        var element = document.createElement(tag);
         if (className) element.classList.add(className);
 
         return element;
     }
 
     getElement(selector) {
-        const element = document.querySelector(selector);
+        var element = document.querySelector(selector);
 
         return element;
     }
@@ -121,13 +124,25 @@ class View {
                 span.contentEditable = true;
                 span.classList.add("span");
                 remove.textContent = "delete";
+                remove.onfocus = () => {
+                    remove.textContent = "";
+                    remove.style.backgroundColor = "rgb(233, 73, 180)";
+                    remove.style.width = "25px";
+                    remove.style.height = "25px";
+                };
 
-                const checkbox = this.createElement("input");
+                remove.onblur = () => {
+                    remove.textContent = "delete";
+                    remove.style.background = "none";
+                    remove.style.width = "50px";
+                };
+
+                var checkbox = this.createElement("input");
                 checkbox.type = "checkbox";
                 checkbox.checked = todo.complete;
 
                 if (todo.complete) {
-                    const strike = this.createElement("s");
+                    var strike = this.createElement("s");
                     strike.textContent = todo.text;
                     span.innerHTML = "";
                     span.contentEditable = false;
@@ -161,7 +176,7 @@ class View {
     bindDeleteTodo(handler) {
         this.list.addEventListener("click", e => {
             if (e.target.classList.contains("remove")) {
-                const id = +e.target.parentElement.id;
+                var id = +e.target.parentElement.id;
 
                 handler(id);
             }
@@ -179,7 +194,7 @@ class View {
     bindEditTodo(handler) {
         this.list.addEventListener("focusout", event => {
             if (this._temporaryTodoText) {
-                const id = +event.target.parentElement.id;
+                var id = +event.target.parentElement.id;
 
                 handler(id, this._temporaryTodoText);
                 this._temporaryTodoText = "";
@@ -190,7 +205,7 @@ class View {
     bindToggleTodo(handler) {
         this.list.addEventListener("change", event => {
             if (event.target.type === "checkbox") {
-                const id = +event.target.parentElement.id;
+                var id = +event.target.parentElement.id;
 
                 handler(id);
             }
@@ -198,7 +213,7 @@ class View {
     }
 
     bindFilterTodo(handler) {
-        this.filter.addEventListener("click", e => {
+        this.filterBtnS.addEventListener("click", e => {
             var filter = +e.target.getAttribute("value");
             handler(filter);
             this.changePage(filter);
@@ -208,28 +223,19 @@ class View {
     changePage(event) {
         switch (event) {
             case 0:
-                document.querySelectorAll(".span").forEach(el => {
-                    el.parentElement.style.display = "flex";
-                });
-                document.querySelectorAll(".completed").forEach(el => {
-                    el.parentElement.style.display = "flex";
-                });
+                this.allBtn.classList.add("activeBtn");
+                this.activeBtn.classList.remove("activeBtn");
+                this.completeBtn.classList.remove("activeBtn");
                 break;
             case 1:
-                document.querySelectorAll(".span").forEach(el => {
-                    el.parentElement.style.display = "flex";
-                });
-                document.querySelectorAll(".completed").forEach(el => {
-                    el.parentElement.style.display = "none";
-                });
+                this.allBtn.classList.remove("activeBtn");
+                this.activeBtn.classList.add("activeBtn");
+                this.completeBtn.classList.remove("activeBtn");
                 break;
             case 2:
-                document.querySelectorAll(".span").forEach(el => {
-                    el.parentElement.style.display = "none";
-                });
-                document.querySelectorAll(".completed").forEach(el => {
-                    el.parentElement.style.display = "flex";
-                });
+                this.allBtn.classList.remove("activeBtn");
+                this.activeBtn.classList.remove("activeBtn");
+                this.completeBtn.classList.add("activeBtn");
                 break;
         }
     }
@@ -275,4 +281,4 @@ class Controller {
     };
 }
 
-const app = new Controller(new Model(), new View());
+var app = new Controller(new Model(), new View());
