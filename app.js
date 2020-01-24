@@ -109,6 +109,7 @@ class View {
     }
 
     displayTodoS(todoS) {
+        // Faster way for clear tasks
         while (this.list.firstChild) {
             this.list.removeChild(this.list.firstChild);
         }
