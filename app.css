@@ -187,12 +187,12 @@ input[type="checkbox"]:checked::before {
 .tooltip .tooltiptext::after {
     content: " ";
     position: absolute;
-    bottom: 100%;
-    left: 78%;
+    bottom: 95%;
+    left: 81%;
     border-style: solid;
     border-width: 5px;
     margin-top: -5px;
-    transform: rotate(104deg);
+    transform: rotate(112deg);
     border-color: transparent var(--EventColor) transparent transparent;
 }
 
