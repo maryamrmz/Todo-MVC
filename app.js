@@ -62,13 +62,10 @@ class Model {
     }
 
     filterTodo(filter) {
-        debugger;
-        var filterLi = this.filter,
-            filterList = this.todoS.filter(todo => {
-                if (filter === 0) return true;
-                return filter === 1 ? !todo.complete : todo.complete;
-            });
-        this.filter = filterList;
+        this.todoS.filter(todo => {
+            if (filter === 0) return true;
+            return filter === 1 ? !todo.complete : todo.complete;
+        });
     }
 }
 
@@ -84,7 +81,6 @@ class View {
 
         this._temporaryTodoText = "";
         this._initLocalListeners();
-        this.filter();
     }
 
     createElement(tag, className) {
@@ -208,16 +204,13 @@ class View {
         });
     }
 
-    filter() {
+    bindFilterTodo(handler) {
         this.filterBtnS.addEventListener("click", e => {
             var filter = +e.target.getAttribute("value");
-            this.bindFilterTodo(filter);
             this.changePage(filter);
-        });
-    }
 
-    bindFilterTodo(handler) {
-        return handler;
+            handler(filter);
+        });
     }
 
     changePage(event) {
