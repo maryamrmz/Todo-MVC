@@ -126,6 +126,7 @@ input[type="checkbox"] {
     display: block;
     font: 14px/20px "Open Sans", Arial, sans-serif;
     color: #ddd;
+    cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -160,6 +161,7 @@ input[type="checkbox"]:checked::before {
     border: none;
     outline: none;
     background: var(--EventColor);
+    cursor: pointer;
     width: 20px;
     height: 20px;
     border-radius: 30px;
@@ -233,4 +235,5 @@ input[type="checkbox"]:checked::before {
 
 .activeBtn {
     background-color: rgb(210, 233, 233) !important;
+    transform: scale(1.1);
 }
