@@ -171,7 +171,7 @@ input[type="checkbox"]:checked::before {
 .tooltip .tooltiptext {
     position: absolute;
     top: 25px;
-    right: 10px;
+    right: 12px;
     z-index: 1;
     color: var(--EventColor);
     font-weight: bold;
