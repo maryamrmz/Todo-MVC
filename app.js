@@ -62,10 +62,13 @@ class Model {
     }
 
     filterTodo(filter) {
-        this.todoS.filter(todo => {
-            if (filter === 0) return true;
-            return filter === 1 ? !todo.complete : todo.complete;
-        });
+        debugger;
+        var filterLi = this.filter,
+            filterList = this.todoS.filter(todo => {
+                if (filter === 0) return true;
+                return filter === 1 ? !todo.complete : todo.complete;
+            });
+        this.filter = filterList;
     }
 }
 
@@ -81,6 +84,7 @@ class View {
 
         this._temporaryTodoText = "";
         this._initLocalListeners();
+        this.filter();
     }
 
     createElement(tag, className) {
@@ -118,25 +122,16 @@ class View {
             todoS.forEach(todo => {
                 var li = this.createElement("li", "task"),
                     span = this.createElement("span"),
-                    remove = this.createElement("button", "remove");
+                    remove = this.createElement("button", "remove"),
+                    tooltip = this.createElement("span", "tooltiptext");
 
                 li.id = todo.id;
                 span.textContent = todo.text;
                 span.contentEditable = true;
                 span.classList.add("span");
-                remove.textContent = "delete";
-                remove.onfocus = () => {
-                    remove.textContent = "";
-                    remove.style.backgroundColor = "rgb(233, 73, 180)";
-                    remove.style.width = "25px";
-                    remove.style.height = "25px";
-                };
-
-                remove.onblur = () => {
-                    remove.textContent = "delete";
-                    remove.style.background = "none";
-                    remove.style.width = "50px";
-                };
+                remove.classList.add("tooltip");
+                tooltip.textContent = "delete";
+                remove.append(tooltip);
 
                 var checkbox = this.createElement("input");
                 checkbox.type = "checkbox";
@@ -213,12 +208,16 @@ class View {
         });
     }
 
-    bindFilterTodo(handler) {
+    filter() {
         this.filterBtnS.addEventListener("click", e => {
             var filter = +e.target.getAttribute("value");
-            handler(filter);
+            this.bindFilterTodo(filter);
             this.changePage(filter);
         });
+    }
+
+    bindFilterTodo(handler) {
+        return handler;
     }
 
     changePage(event) {
