@@ -207,13 +207,13 @@ class View {
     bindFilterTodo(handler) {
         this.filterBtnS.addEventListener("click", e => {
             var filter = +e.target.getAttribute("value");
-            this.changePage(filter);
+            this._changePage(filter);
 
             handler(filter);
         });
     }
 
-    changePage(event) {
+    _changePage(event) {
         switch (event) {
             case 0:
                 this.allBtn.classList.add("activeBtn");
