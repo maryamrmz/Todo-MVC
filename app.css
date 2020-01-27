@@ -231,6 +231,7 @@ input[type="checkbox"]:checked::before {
 .buttons div:active {
     transition: all 0.25s;
     transform: scale(1.1);
+    box-shadow: 5px 5px 5px;
 }
 
 .activeBtn {
