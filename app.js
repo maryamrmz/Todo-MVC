@@ -8,8 +8,13 @@ class Model {
         this.onTodoListChanged = callback;
     }
 
-    _commit(todoS) {
-        this.onTodoListChanged(todoS);
+    _commit(todoS = this.todoS) {
+        this.onTodoListChanged(
+            todoS.filter(todo => {
+                if (this.filter === 0) return true;
+                return this.filter === 1 ? !todo.complete : todo.complete;
+            })
+        );
     }
 
     addTodo(todoText) {
@@ -62,10 +67,8 @@ class Model {
     }
 
     filterTodo(filter) {
-        this.todoS.filter(todo => {
-            if (filter === 0) return true;
-            return filter === 1 ? !todo.complete : todo.complete;
-        });
+        this.filter = filter;
+        this._commit();
     }
 }
 
