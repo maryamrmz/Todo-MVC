@@ -1,5 +1,5 @@
 :root {
-    --mainColor: rgb(57, 202, 200);
+    --mainColor: rgb(63, 113, 113);
     --EventColor: rgb(230, 79, 179);
 }
 
@@ -234,6 +234,6 @@ input[type="checkbox"]:checked::before {
 }
 
 .activeBtn {
-    background-color: rgb(210, 233, 233) !important;
+    box-shadow: 5px 5px 5px;
     transform: scale(1.1);
 }
