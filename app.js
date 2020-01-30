@@ -1,7 +1,7 @@
 class Model {
     constructor() {
         this.todoS = [];
-        this.filter = 0;
+        this.filter = "0";
     }
 
     bindTodoListChanged(callback) {
@@ -11,8 +11,8 @@ class Model {
     _commit(todoS = this.todoS) {
         this.onTodoListChanged(
             todoS.filter(todo => {
-                if (this.filter === 0) return true;
-                return this.filter === 1 ? !todo.complete : todo.complete;
+                if (this.filter == "0") return true;
+                return this.filter == "1" ? !todo.complete : todo.complete;
             })
         );
     }
@@ -209,8 +209,9 @@ class View {
 
     bindFilterTodo(handler) {
         this.filterBtnS.addEventListener("click", e => {
-            var filter = +e.target.getAttribute("value");
+            var filter = e.target.getAttribute("value");
             this._changePage(filter);
+            if (filter == null) return false;
 
             handler(filter);
         });
@@ -218,17 +219,17 @@ class View {
 
     _changePage(event) {
         switch (event) {
-            case 0:
+            case "0":
                 this.allBtn.classList.add("activeBtn");
                 this.activeBtn.classList.remove("activeBtn");
                 this.completeBtn.classList.remove("activeBtn");
                 break;
-            case 1:
+            case "1":
                 this.allBtn.classList.remove("activeBtn");
                 this.activeBtn.classList.add("activeBtn");
                 this.completeBtn.classList.remove("activeBtn");
                 break;
-            case 2:
+            case "2":
                 this.allBtn.classList.remove("activeBtn");
                 this.activeBtn.classList.remove("activeBtn");
                 this.completeBtn.classList.add("activeBtn");
