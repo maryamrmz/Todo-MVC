@@ -218,13 +218,12 @@ input[type="checkbox"]:checked::before {
     background: none;
     outline: none;
     cursor: pointer;
-    height: 52px;
     border: 1px solid var(--mainColor);
     border-radius: 40px;
     width: 20%;
     min-width: 100px;
     text-align: center;
-    line-height: 3.2;
+    line-height: 2.6;
 }
 
 .buttons div:hover {
