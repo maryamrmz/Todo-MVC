@@ -210,8 +210,8 @@ class View {
     bindFilterTodo(handler) {
         this.filterBtnS.addEventListener("click", e => {
             var filter = e.target.getAttribute("value");
-            this._changePage(filter);
             if (filter == null) return false;
+            this._changePage(filter);
 
             handler(filter);
         });
