@@ -1,6 +1,6 @@
 class Model {
     constructor() {
-        this.todoS = [];
+        this.todoS = JSON.parse(localStorage.getItem("todoS")) || [];
         this.filter = "0";
     }
 
@@ -15,6 +15,7 @@ class Model {
                 return this.filter == "1" ? !todo.complete : todo.complete;
             })
         );
+        localStorage.setItem("todoS", JSON.stringify(todoS));
     }
 
     addTodo(todoText) {
