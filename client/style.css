@@ -236,3 +236,30 @@ input[type="checkbox"]:checked::before {
     box-shadow: 5px 5px 5px;
     transform: scale(1.1);
 }
+
+.data {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+    cursor: pointer;
+    margin: 20px 0;
+}
+
+.upload,
+.download {
+    padding: 10px;
+    border: 1px solid var(--mainColor);
+    border-radius: 40px;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+}
+
+.upload:hover,
+.download:hover {
+    box-shadow: 2px 5px 10px;
+}

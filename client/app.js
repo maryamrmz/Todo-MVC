@@ -18,6 +18,22 @@ class Model {
         localStorage.setItem("todoS", JSON.stringify(todoS));
     }
 
+    uploadTodo() {
+        let todoS = JSON.stringify(JSON.parse(localStorage.getItem("todoS")));
+        if (todoS == "[]") return alert("There's nothing to save.");
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert("Saved successfully!");
+            }
+        };
+        xhr.open("POST", "write", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(todoS);
+
+        this._commit(this.todoS);
+    }
+
     addTodo(todoText) {
         var todo = {
             id:
@@ -82,6 +98,8 @@ class View {
         this.allBtn = document.querySelector(".all");
         this.activeBtn = document.querySelector(".active");
         this.completeBtn = document.querySelector(".complete");
+        this.upload = document.querySelector(".upload");
+        this.download = document.querySelector(".download");
 
         this._temporaryTodoText = "";
         this._initLocalListeners();
@@ -198,6 +216,13 @@ class View {
         });
     }
 
+    bindUploadTodo(handler) {
+        this.upload.addEventListener("click", () => {
+            var e = localStorage.getItem("key");
+            handler(e);
+        });
+    }
+
     bindToggleTodo(handler) {
         this.list.addEventListener("change", event => {
             if (event.target.type === "checkbox") {
@@ -250,6 +275,7 @@ class Controller {
         this.view.bindEditTodo(this.handleEditTodo);
         this.view.bindToggleTodo(this.handleToggleTodo);
         this.view.bindFilterTodo(this.handleFilterTodo);
+        this.view.bindUploadTodo(this.handleUploadTodo);
 
         this.onTodoListChanged(this.model.todoS);
     }
@@ -276,6 +302,10 @@ class Controller {
 
     handleFilterTodo = filter => {
         this.model.filterTodo(filter);
+    };
+
+    handleUploadTodo = () => {
+        this.model.uploadTodo();
     };
 }
 
