@@ -11,3 +11,5 @@
 .history
 
 node_modules
+
+.git
